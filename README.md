@@ -2,15 +2,16 @@
 The Cost Optimizer for Amazon AppStream 2.0 monitors your AppStream 2.0 image builders and notifies you and/or stops them when they are active for longer than specified thresholds.
 
 ## Automated deployment
-This AWS CloudFormation template deploys the Cost Optimizer for Amazon AppStream 2.0 on the AWS Cloud.
-1. Sign in to the AWS Management Console and choose the following **Launch Solution** button to launch the `cost-optimizer-for-amazon-appstream2` AWS CloudFormation template.
-   You can also [download the template](https://github.com/aws-samples/cost-optimizer-for-amazon-appstream2/blob/main/deployment/cfn/cost-optimizer-for-amazon-appstream2.yaml) as a starting point for your own implementation.
-
-   [![Launch solution button](/images/launch-button.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=WorkSpacesCostOptimizer&templateURL=https://github.com/aws-samples/cost-optimizer-for-amazon-appstream2/blob/main/deployment/cfn/cost-optimizer-for-amazon-appstream2.yaml?raw=true)
-2. The template launches in the US East (N. Virginia) Region by default.
+This AWS CloudFormation template deploys the Cost Optimizer for Amazon AppStream 2.0 solution on the AWS Cloud.
+1. Download the [CloudFormation template](https://github.com/aws-samples/cost-optimizer-for-amazon-appstream2/blob/main/deployment/cfn/cost-optimizer-for-amazon-appstream2.yaml?raw=true).
+2. Sign in to the AWS Management Console and visit the CloudFormation console at [https://console.aws.amazon.com/cloudformation/](https://console.aws.amazon.com/cloudformation/).
+3. This solution runs in a single AWS Region but monitors AppStream 2.0 resources across all supported regions in the same AWS partition (e.g. `aws` or `aws-us-gov`).
    To launch the solution in a different AWS Region, use the Region selector in the console navigation bar.
-3. On the **Select Template** page, verify that you selected the correct template and choose **Next**.
-   Under **Parameters**, review the parameters for the template and modify them as necessary.
+4. On the CloudFormation console landing page, choose **Create stack**.
+5. In the **Specify template** section, choose **Upload a template file**, choose **Choose file**, and select the template file you downloaded.
+6. Choose **Next**.
+7. In the **Stack name** section, enter a stack name.
+8. In the **Parameters** section, review the parameters for the template and modify them as necessary.
    This solution uses the following default values.
 
    **Notifications**
@@ -20,7 +21,7 @@ This AWS CloudFormation template deploys the Cost Optimizer for Amazon AppStream
    | **Image builder notification threshold** | `2` | How long (in hours) an image builder can run before notifications are sent. Set to `0` to disable notifications. |
    | **Image builder stop threshold** | `12` | How long (in hours) an image builder can run before being stopped. Set to `0` to allow image builders to run indefinitely. |
    | **Email address** | `<Requires input>` | Email address to receive notifications. |
-   | **SNS topic customer master key (CMK)** | `alias/aws/sns` | For more information about SNS topic encryption, see [https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html](Encryption at rest). |
+   | **SNS topic customer master key (CMK)** | `alias/aws/sns` | For more information about SNS topic encryption, see [Encryption at rest](https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html). |
 
     **Lambda function**
 
@@ -31,14 +32,15 @@ This AWS CloudFormation template deploys the Cost Optimizer for Amazon AppStream
    | **Timeout** | `60` | The amount of time (in seconds) that Lambda allows the function to run before stopping it. Minimum: `1`, maximum: `900`. |
    | **Architecture** | `x86_64` | `x86_64` is supported in all AWS Regions. `arm64` costs less, but is not supported in all AWS Regions. See [Lambda instruction set architectures](https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html) for more information. |
 
-4. Choose **Next**.
-5. On the **Options** page, choose **Next**.
-6. On the **Review** page, review and confirm the settings. Check the box acknowledging that the template will create IAM resources.
-7. Choose **Create** to deploy the stack.
-8. Click the `Confirm subscription` link in the email with the subject `AWS Notification - Subscription Confirmation`.
-   You can view the status of the stack in the AWS CloudFormation console in the **Status** column.
-   You should see a status of `CREATE_COMPLETE` in approximately two minutes.
-9. Click the **Confirm subscription** link in the email with the subject `AWS Notification - Subscription Confirmation`.
+9. Choose **Next**.
+10. On the **Configure stack options** page, choose **Next**.
+11. On the **Review <stack name>** page, review and confirm the settings.
+    Check the box acknowledging that the template will create IAM resources.
+12. Choose **Submit** to deploy the stack.
+13. You can view the status of the stack in the CloudFormation console in the **Status** column.
+    You should see a status of `CREATE_COMPLETE` in approximately two minutes.
+14. The email address specified as a stack parameter will receive a confirmation email with the subject `AWS Notification - Subscription Confirmation`.
+    Choose the **Confirm subscription** link in the email.
 
 ## Architecture
 ![Architecture diagram](/images/architecture.png "Architecture")
