@@ -51,7 +51,7 @@ def get_supported_as2_regions() -> List[str]:
     """Return regions in the current partition supported by AppStream 2.0.
     """
     partition: str = session.get_partition_for_region(os.environ["AWS_REGION"])
-    return boto3.session.Session().get_available_regions("appstream", partition)
+    return session.get_available_regions("appstream", partition)
 
 
 def publish_image_builder_notification(
