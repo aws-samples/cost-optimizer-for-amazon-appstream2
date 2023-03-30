@@ -15,7 +15,7 @@ from typing import Dict, List, Optional, Tuple
 import boto3
 from botocore.exceptions import ClientError
 
-IB_TABLE: str = os.environ["IB_TABLE"]
+IB_TABLE_NAME: str = os.environ["IB_TABLE_NAME"]
 IB_ACTIVE_STATES: Tuple = (
     "PENDING",
     "UPDATING_AGENT",
@@ -42,7 +42,7 @@ else:
 # Regional AppStream 2.0 clients are created later.
 session: boto3.session.Session = boto3.Session()
 ddb = session.resource("dynamodb")
-table = ddb.Table(IB_TABLE)
+table = ddb.Table(IB_TABLE_NAME)
 sts = session.client("sts")
 sns = session.client("sns")
 

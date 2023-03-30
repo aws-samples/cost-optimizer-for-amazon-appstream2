@@ -206,7 +206,7 @@ Resources:
       Description: 'Monitors active image builders.'
       Environment:
         Variables:
-          IB_TABLE: !Ref ImageBuilderTable
+          IB_TABLE_NAME: !Ref ImageBuilderTable
           IB_NOTIFY_HOURS: !Ref ImageBuilderNotificationThreshold
           IB_STOP_HOURS: !Ref ImageBuilderStopThreshold
           LOG_LEVEL: !Ref LogLevel
@@ -230,7 +230,7 @@ Resources:
           import boto3
           from botocore.exceptions import ClientError
 
-          IB_TABLE: str = os.environ["IB_TABLE"]
+          IB_TABLE_NAME: str = os.environ["IB_TABLE_NAME"]
           IB_ACTIVE_STATES: Tuple = (
               "PENDING",
               "UPDATING_AGENT",
@@ -257,7 +257,7 @@ Resources:
           # Regional AppStream 2.0 clients are created later.
           session: boto3.session.Session = boto3.Session()
           ddb = session.resource("dynamodb")
-          table = ddb.Table(IB_TABLE)
+          table = ddb.Table(IB_TABLE_NAME)
           sts = session.client("sts")
           sns = session.client("sns")
 
