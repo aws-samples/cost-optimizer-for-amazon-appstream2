@@ -601,7 +601,7 @@ Resources:
                   process_image_builders(region=region)
 
       Handler: index.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.10
       Timeout: !Ref Timeout
   ImageBuilderMonitorFunctionPermission:
     Type: AWS::Lambda::Permission
