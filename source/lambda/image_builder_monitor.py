@@ -19,6 +19,7 @@ logger: logging.Logger = logging.getLogger()
 LOG_LEVEL: str = str(os.environ["LOG_LEVEL"])
 logger.setLevel(LOG_LEVEL)
 
+logging.debug("Solution version: 1.1.0")
 IB_ACTIVE_STATES: Tuple = (
     "PENDING",
     "UPDATING_AGENT",
