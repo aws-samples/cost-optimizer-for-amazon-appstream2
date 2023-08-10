@@ -74,14 +74,7 @@ def get_supported_as2_regions() -> List[str]:
     """Return regions in the current partition supported by AppStream 2.0.
     """
     partition: str = session.get_partition_for_region(os.environ["AWS_REGION"])
-    regions: List = session.get_available_regions("appstream", partition)
-
-    # Temporary workaround until the Lambda python3.9 runtime updates boto3.
-    # See GitHub issue #2.
-    if partition == "aws-us-gov" and "us-gov-east-1" not in regions:
-        regions.append("us-gov-east-1")
-
-    return regions
+    return session.get_available_regions("appstream", partition)
 
 
 def publish_image_builder_notification(
