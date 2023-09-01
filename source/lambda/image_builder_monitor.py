@@ -10,7 +10,6 @@ import json
 import logging
 from datetime import datetime, timedelta
 from email.utils import parsedate_to_datetime
-from typing import Dict, List, Optional, Tuple
 
 import boto3
 from botocore.exceptions import ClientError
@@ -20,7 +19,7 @@ LOG_LEVEL: str = str(os.environ["LOG_LEVEL"])
 logger.setLevel(LOG_LEVEL)
 
 logging.debug("Solution version: 1.1.0")
-IB_ACTIVE_STATES: Tuple = (
+IB_ACTIVE_STATES: tuple[str, str, str, str] = (
     "PENDING",
     "UPDATING_AGENT",
     "RUNNING",
@@ -70,7 +69,7 @@ sts = session.client("sts")
 sns = session.client("sns")
 
 
-def get_supported_as2_regions() -> List[str]:
+def get_supported_as2_regions() -> list[str]:
     """Return regions in the current partition supported by AppStream 2.0.
     """
     partition: str = session.get_partition_for_region(os.environ["AWS_REGION"])
@@ -79,9 +78,9 @@ def get_supported_as2_regions() -> List[str]:
 
 def publish_image_builder_notification(
     notification_type: str,
-    image_builder: Dict,
+    image_builder: dict,
     active_duration: str,
-    tags: Dict,
+    tags: dict,
 ):
     """Publish an SNS notification about an image builder.
     """
@@ -115,8 +114,8 @@ def publish_image_builder_notification(
 
 
 def process_previously_active_image_builder(
-    image_builder: Dict,
-    ddb_item: Dict,
+    image_builder: dict,
+    ddb_item: dict,
     response_dt: datetime,
     expiration_date: int,
     as2
@@ -285,7 +284,7 @@ def process_newly_active_image_builder(
 
 
 def process_active_image_builder(
-    image_builder: Dict,
+    image_builder: dict,
     as2,
     response_dt: datetime
 ):
@@ -327,14 +326,14 @@ def process_image_builders(region: str):
         service_name="appstream",
         region_name=region
     )
-    image_builders: List = []
+    image_builders: list = []
     try:
         response = as2.describe_image_builders()
         ib_response_dt: datetime = parsedate_to_datetime(
             response["ResponseMetadata"]["HTTPHeaders"]["date"]
         )
         image_builders = response.get("ImageBuilders", [])
-        next_token: Optional[str] = response.get("NextToken", None)
+        next_token: str | None = response.get("NextToken", None)
         while next_token is not None:
             response = as2.describe_image_builders(NextToken=next_token)
             image_builders.extend(response.get("ImageBuilders", []))
@@ -359,7 +358,7 @@ def process_image_builders(region: str):
     logging.info("Finished processing image builders for region %s", region)
 
 
-def lambda_handler(event: Dict, context: Dict):
+def lambda_handler(event: dict, context: dict):
     """Lambda handler.
     """
     for region in get_supported_as2_regions():
