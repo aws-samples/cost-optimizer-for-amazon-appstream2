@@ -1,5 +1,5 @@
 # Cost Optimizer for Amazon AppStream 2.0
-The Cost Optimizer for Amazon AppStream 2.0 monitors your AppStream 2.0 image builders and notifies you and/or stops them when they are active for longer than specified thresholds.
+The Cost Optimizer for Amazon AppStream 2.0 monitors your AppStream 2.0 app block builders and image builders, and notifies you and/or stops them when they are active for longer than specified thresholds.
 
 ## Automated deployment
 This AWS CloudFormation template deploys the Cost Optimizer for Amazon AppStream 2.0 solution on the AWS Cloud.
@@ -18,6 +18,10 @@ This AWS CloudFormation template deploys the Cost Optimizer for Amazon AppStream
 
    | Parameter | Default | Description |
    | --- | --- | --- |
+   | **App block builder active notification threshold** | `2` | How long (in hours) an app block builder can run before notifications are sent. Set to `0` to disable notifications. |
+   | **App block builder active notification interval** | `1` | How long (in hours) between app block builder active notifications. Minimum: `1`. |
+   | **App block builder stop threshold** | `12` | How long (in hours) an app block builder can run before being stopped. Set to `0` to allow image builders to run indefinitely. |
+   | **App block builder stop notifications** | `Yes` | Possible values: `No` and `Yes`. |
    | **Image builder active notification threshold** | `2` | How long (in hours) an image builder can run before notifications are sent. Set to `0` to disable notifications. |
    | **Image builder active notification interval** | `1` | How long (in hours) between image builder active notifications. Minimum: `1`. |
    | **Image builder stop threshold** | `12` | How long (in hours) an image builder can run before being stopped. Set to `0` to allow image builders to run indefinitely. |
@@ -48,14 +52,14 @@ This AWS CloudFormation template deploys the Cost Optimizer for Amazon AppStream
 ![Architecture diagram](/images/architecture.png "Architecture")
 
 An Amazon EventBridge rule invokes an AWS Lambda function every five minutes.
-The region and name of any active (i.e. in the `PENDING`, `UPDATING_AGENT`, `RUNNING`, or `REBOOTING` states) image builders are stored in an Amazon DynamoDB table, along with the current time.
-If an image builder has been active for longer than the `Image builder notification threshold` parameter (default: two hours), an email notification with the subject `Image builder <name> active for <time>` is sent via Amazon SNS.
+The region and name of any app block builders in the `STARTING` or `RUNNING` states, and image builders in the `PENDING`, `UPDATING_AGENT`, `RUNNING`, or `REBOOTING` states are stored in Amazon DynamoDB tables, along with the current time.
+If an app block builder has been active for longer than the `App block builder notification threshold` parameter (default: two hours), an email notification with the subject `App block builder <name> active for <time>` is sent via Amazon SNS.
 Example body:
 
 ```
 AWS account: 123456789012
 Region: us-east-1
-Name: ExampleImageBuilder
+Name: ExampleAppBlockBuilder
 Instance type: stream.standard.large
 Time active: 2 hours
 Tags: {
@@ -63,19 +67,20 @@ Tags: {
 }
 ```
 
-Each image builder will trigger a maximum of one active notification per specified interval (the `Image builder active notification interval` parameter).
-If the image builder has been active for longer than the `Image builder stop threshold` parameter (default: 12 hours), the notification subject is `Stopping image builder <name>`.
+Each app block builder will trigger a maximum of one active notification per specified interval (the `App block builder active notification interval` parameter).
+If the app block builder has been active for longer than the `app block builder stop threshold` parameter (default: 12 hours), the notification subject is `Stopping app block builder <name>`.
+Image builders are handled similarly.
 
-## Opt out image builders
-To opt out an image builder from active notifications, being stopped, and/or stop notifications, apply one or more of the following resource tags to the image builder, with any tag value:
+## Opt out app block builders and image builders
+To opt out an app block builder or image builder from active notifications, being stopped, and/or stop notifications, apply one or more of the following resource tags to the builder, with any tag value:
 * `Skip_Active_Notification`
 * `Skip_Stop`
 * `Skip_Stop_Notification`
 
 ## Costs
 You are responsible for the cost of the AWS services used while running this solution.
-The total cost of running this solution depends on the number of image builders in your account and the number of notifications sent.
-As of April 2023, the cost for running this solution with default settings in the US East (N. Virginia) Region is approximately $0.31 per month for an account with 10 image builders and 100 notifications per month.
+The total cost of running this solution depends on the number of app block builders in your account, the number of image builders in your account, and the number of notifications sent.
+As of April 2023, the cost for running this solution with default settings in the US East (N. Virginia) Region is approximately $0.31 per month for an account with 10 builders and 100 notifications per month.
 
 ## License
 This solution is licensed under the MIT-0 License. See the LICENSE file.
