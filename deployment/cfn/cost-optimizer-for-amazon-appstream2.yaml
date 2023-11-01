@@ -290,7 +290,7 @@ Resources:
         - !Ref Architecture
       ReservedConcurrentExecutions: 1
       Role: !GetAtt AppStreamBuilderMonitorRole.Arn
-      Description: 'Monitors active image builders.'
+      Description: 'Monitors active app block builders and image builders.'
       Environment:
         Variables:
           ABB_TABLE_NAME: !Ref AppBlockBuilderTable
@@ -312,7 +312,7 @@ Resources:
           Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
           SPDX-License-Identifier: MIT-0
 
-          Check for image builders active longer than a threshold.
+          Check for builders active longer than a threshold.
           """
           import os
           import json

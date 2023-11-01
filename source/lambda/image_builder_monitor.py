@@ -3,7 +3,7 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: MIT-0
 
-Check for image builders active longer than a threshold.
+Check for builders active longer than a threshold.
 """
 import os
 import json
