@@ -68,7 +68,7 @@ Tags: {
 ```
 
 Each app block builder will trigger a maximum of one active notification per specified interval (the `App block builder active notification interval` parameter).
-If the app block builder has been active for longer than the `app block builder stop threshold` parameter (default: 12 hours), the notification subject is `Stopping app block builder <name>`.
+If the app block builder has been active for longer than the `App block builder stop threshold` parameter (default: 12 hours), the notification subject is `Stopping app block builder <name>`.
 Image builders are handled similarly.
 
 ## Opt out app block builders and image builders
