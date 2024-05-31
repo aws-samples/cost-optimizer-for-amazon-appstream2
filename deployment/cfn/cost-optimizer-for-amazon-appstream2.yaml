@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
-  Deploys the cost optimizer for Amazon AppStream 2.0.
+  Deploys the Cost Optimizer for Amazon AppStream 2.0 (uksb-shgon3mamv).
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
