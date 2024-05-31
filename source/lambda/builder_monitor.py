@@ -18,7 +18,7 @@ logger: logging.Logger = logging.getLogger()
 LOG_LEVEL: str = str(os.environ["LOG_LEVEL"])
 logger.setLevel(LOG_LEVEL)
 
-logging.debug("Solution version: 1.2.0")
+logging.debug("Solution version: 1.3.0")
 
 # App block builders
 ABB_ACTIVE_STATES: tuple[str, str] = (
