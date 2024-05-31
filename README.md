@@ -36,7 +36,7 @@ This AWS CloudFormation template deploys the Cost Optimizer for Amazon AppStream
    | **Python logging level** | `INFO` | Possible values are: `CRITICAL`, `ERROR`, `WARNING`, `INFO`, and `DEBUG`. |
    | **Log retention period** | `7` | Days to retain function logs. Possible values: `1`, `3`, `5`, `7`, `14`, `30`, `60`, `90`, `120`, `150`, `180`, `365`, `400`, `545`, `731`, `1827`, `2192`, `2557`, `2922`, `3288`, and `3653`. |
    | **Timeout** | `60` | The amount of time (in seconds) that Lambda allows the function to run before stopping it. Minimum: `1`, maximum: `900`. |
-   | **Architecture** | `x86_64` | `x86_64` is supported in all AWS Regions. `arm64` costs less, but is not supported in all AWS Regions. See [Lambda instruction set architectures](https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html) for more information. |
+   | **Architecture** | `arm64` | See [Lambda instruction set architectures](https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html) for more information. |
 
 9. Choose **Next**.
 10. On the **Configure stack options** page, choose **Next**.

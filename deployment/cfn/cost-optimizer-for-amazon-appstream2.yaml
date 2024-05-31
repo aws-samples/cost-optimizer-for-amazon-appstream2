@@ -83,8 +83,8 @@ Parameters:
       - 'Yes'
   Architecture:
     Type: String
-    Description: 'x86_64 is supported in all AWS Regions. arm64 costs less, but is not supported in all AWS Regions.'
-    Default: 'x86_64'
+    Description: "Select x86_64 if deploying to an AWS Region that doesn't support arm64."
+    Default: 'arm64'
     AllowedValues:
       - 'arm64'
       - 'x86_64'
