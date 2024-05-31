@@ -108,7 +108,6 @@ session: boto3.session.Session = boto3.Session()
 ddb = session.resource("dynamodb")
 abb_table = ddb.Table(ABB_TABLE_NAME)
 ib_table = ddb.Table(IB_TABLE_NAME)
-sts = session.client("sts")
 sns = session.client("sns")
 
 

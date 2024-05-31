@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - AWS project ID to CloudFormation template.
 ### Changed
 - Update default Lambda architecture to `arm64` ([#8](https://github.com/aws-samples/cost-optimizer-for-amazon-appstream2/issues/8)).
+### Removed
+- Unused STS client from Lambda function.
 
 ## [1.2.0] - 2023-10-05
 ### Added
