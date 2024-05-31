@@ -167,8 +167,7 @@ def process_previously_active_app_block_builder(
     expiration_date: int,
     as2
 ) -> None:
-    """
-    The app block builder is stopped if all the following are true:
+    """The app block builder is stopped if all the following are true:
     * ABB_STOP_HOURS > 0 (not disabled globally).
     * active_hours > ABB_STOP_HOURS.
     * Skip_Stop tag is not present.
@@ -317,8 +316,7 @@ def process_previously_active_image_builder(
     expiration_date: int,
     as2
 ) -> None:
-    """
-    The image builder is stopped if all the following are true:
+    """The image builder is stopped if all the following are true:
     * IB_STOP_HOURS > 0 (not disabled globally).
     * active_hours > IB_STOP_HOURS.
     * Skip_Stop tag is not present.

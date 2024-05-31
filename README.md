@@ -83,4 +83,4 @@ The total cost of running this solution depends on the number of app block build
 As of April 2023, the cost for running this solution with default settings in the US East (N. Virginia) Region is approximately $0.31 per month for an account with 10 builders and 100 notifications per month.
 
 ## License
-This solution is licensed under the MIT-0 License. See the LICENSE file.
+This solution is licensed under the MIT-0 License. See the [LICENSE](LICENSE) file.
